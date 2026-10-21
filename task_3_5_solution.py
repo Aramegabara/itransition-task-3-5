@@ -23,6 +23,7 @@ for record in records:
 
 connection = sqlite3.connect('books.db')
 cursor = connection.cursor()
+
 CREATE_BOOKS_SQL = """CREATE TABLE IF NOT EXISTS books (
     id TEXT PRIMARY KEY,
     title TEXT,
@@ -33,6 +34,7 @@ CREATE_BOOKS_SQL = """CREATE TABLE IF NOT EXISTS books (
     price TEXT,
     price_usd REAL
 );"""
+
 INSERT_SQL = "INSERT OR REPLACE INTO books VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
 cursor.execute(CREATE_BOOKS_SQL)
 
@@ -46,6 +48,7 @@ CREATE TABLE book_summary AS
 SELECT year, COUNT(*) AS book_count, ROUND(AVG(price_usd), 2) AS average_price
 FROM books
 GROUP BY year"""
+
 cursor.execute("DROP TABLE IF EXISTS book_summary")
 cursor.execute(CREATE_BOOK_SUMMARY)
 connection.commit()
